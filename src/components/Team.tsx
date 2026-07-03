@@ -33,8 +33,18 @@ const statusConfig: Record<string, { color: string; label: string }> = {
   offline: { color: '#94a3b8', label: 'Offline' },
 };
 
+interface MemberForm {
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  dept: string;
+  color: string;
+  status: 'online' | 'away' | 'offline';
+}
+
 const colorOptions = ['#7c3aed', '#a855f7', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#ec4899'];
-const defaultMemberForm = { name: '', role: '', email: '', phone: '', dept: '', color: '#7c3aed', status: 'online' as const };
+const defaultMemberForm: MemberForm = { name: '', role: '', email: '', phone: '', dept: '', color: '#7c3aed', status: 'online' };
 
 export default function Team() {
   const [search, setSearch] = useState('');
@@ -43,7 +53,7 @@ export default function Team() {
   const [showMemberModal, setShowMemberModal] = useState(false);
   const [showMsgModal, setShowMsgModal] = useState<Member | null>(null);
   const [editMember, setEditMember] = useState<Member | null>(null);
-  const [memberForm, setMemberForm] = useState(defaultMemberForm);
+  const [memberForm, setMemberForm] = useState<MemberForm>(defaultMemberForm);
   const [msgText, setMsgText] = useState('');
   const [sentMsg, setSentMsg] = useState(false);
   const [menuOpen, setMenuOpen] = useState<number | null>(null);
