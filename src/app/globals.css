@@ -386,3 +386,34 @@ body {
 @media (max-width: 1024px) {
   .sidebar-overlay.visible { display: block; }
 }
+
+/* ─── Auth Pages Responsive ─── */
+.auth-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background: var(--bg-main);
+  overflow: hidden;
+}
+.auth-brand {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.auth-form-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: var(--bg-main);
+  overflow-y: auto;
+}
+@media (max-width: 768px) {
+  .auth-layout { flex-direction: column; overflow-y: auto; height: auto; min-height: 100vh; }
+  .auth-brand { display: none !important; }
+  .auth-form-panel { flex: 1; justify-content: flex-start; padding-top: 48px; }
+}

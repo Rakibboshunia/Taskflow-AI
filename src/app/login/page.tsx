@@ -22,15 +22,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', width: '100vw', background: 'var(--bg-main)', overflow: 'hidden' }}>
+    <div className="auth-layout">
       
       {/* Left Branding Panel */}
-      <div style={{ 
-        flex: 1, 
+      <div className="auth-brand" style={{ 
         background: 'linear-gradient(160deg, #0f0c29, #302b63, #24243e)',
-        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
         color: 'white', padding: '40px', position: 'relative', overflow: 'hidden'
-      }} className="hidden md:flex">
+      }}>
         {/* Radial glow blobs */}
         <div style={{ position: 'absolute', top: '10%', left: '-5%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.5) 0%, transparent 70%)', filter: 'blur(40px)' }} />
         <div style={{ position: 'absolute', bottom: '5%', right: '-5%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)', filter: 'blur(50px)' }} />
@@ -62,10 +60,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right Login Panel */}
-      <div style={{ 
-        flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', 
-        alignItems: 'center', padding: '24px', background: 'var(--bg-main)' 
-      }}>
+      <div className="auth-form-panel">
         <div style={{ width: '100%', maxWidth: 420 }}>
           <div style={{ marginBottom: 40, textAlign: 'center' }}>
             <h2 style={{ fontSize: 28, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>Sign In</h2>

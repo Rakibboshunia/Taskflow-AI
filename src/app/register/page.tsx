@@ -22,15 +22,13 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', width: '100vw', background: 'var(--bg-main)', overflow: 'hidden' }}>
+    <div className="auth-layout">
       
       {/* Right Branding Panel (Hidden on small screens) */}
-      <div style={{ 
-        flex: 1, 
+      <div className="auth-brand" style={{ 
         background: 'linear-gradient(160deg, #0a1628, #0d2137, #0f3460)',
-        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
         color: 'white', padding: '40px', position: 'relative', overflow: 'hidden', order: 2
-      }} className="hidden md:flex">
+      }}>
         {/* Radial glow blobs */}
         <div style={{ position: 'absolute', top: '5%', right: '-5%', width: 450, height: 450, borderRadius: '50%', background: 'radial-gradient(circle, rgba(16,185,129,0.4) 0%, transparent 70%)', filter: 'blur(50px)' }} />
         <div style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 350, height: 350, borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.3) 0%, transparent 70%)', filter: 'blur(40px)' }} />
@@ -60,10 +58,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Left Register Panel */}
-      <div style={{ 
-        flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', 
-        alignItems: 'center', padding: '24px', background: 'var(--bg-main)', order: 1
-      }}>
+      <div className="auth-form-panel" style={{ order: 1 }}>
         <div style={{ width: '100%', maxWidth: 420 }}>
           <div style={{ marginBottom: 40, textAlign: 'center' }}>
             <h2 style={{ fontSize: 28, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>Create an Account</h2>
