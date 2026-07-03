@@ -119,7 +119,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
             <h1 style={{ fontSize: 'clamp(14px, 2vw, 18px)', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {greeting}, Al Rakeb! {emoji}
             </h1>
-            <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2, display: 'none' }} className="title-sub">
+            <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2, display: 'none', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} className="title-sub">
               {pageInfo.sub}
             </p>
           </>
@@ -128,7 +128,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
             <h1 style={{ fontSize: 'clamp(14px, 2vw, 18px)', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {pageInfo.title}
             </h1>
-            <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2, display: 'none' }} className="title-sub">
+            <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2, display: 'none', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} className="title-sub">
               {pageInfo.sub}
             </p>
           </>
