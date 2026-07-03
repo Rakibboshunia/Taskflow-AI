@@ -105,7 +105,7 @@ export default function Team() {
           <input type="text" placeholder="Search team..." value={search} onChange={e => setSearch(e.target.value)}
             style={{ border: 'none', outline: 'none', background: 'transparent', fontSize: 13, fontFamily: 'inherit', flex: 1, color: 'var(--text-primary)' }} />
         </div>
-        <div style={{ display: 'flex', gap: 4, background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: 4 }}>
+        <div style={{ display: 'flex', gap: 4, background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: 4, flexWrap: 'wrap' }}>
           {depts.map(d => (
             <button key={d} onClick={() => setDept(d)} style={{
               padding: '5px 12px', borderRadius: 8, border: 'none', cursor: 'pointer',
@@ -119,7 +119,7 @@ export default function Team() {
       </div>
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 24 }}>
+      <div className="grid-4" style={{ marginBottom: 24 }}>
         {[
           { label: 'Total Members', value: members.length, color: '#7c3aed' },
           { label: 'Online Now', value: members.filter(m => m.status === 'online').length, color: '#10b981' },
@@ -134,7 +134,7 @@ export default function Team() {
       </div>
 
       {/* Members Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px,1fr))', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: 16 }}>
         {filtered.map(member => (
           <div key={member.id} className="card" style={{ padding: '24px', cursor: 'pointer', transition: 'all 0.2s' }}
             onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 40px rgba(124,58,237,0.12)'; }}

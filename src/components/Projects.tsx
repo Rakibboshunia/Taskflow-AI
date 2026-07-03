@@ -90,7 +90,7 @@ export default function Projects() {
           <input type="text" placeholder="Search projects..." value={search} onChange={e => setSearch(e.target.value)}
             style={{ border: 'none', outline: 'none', background: 'transparent', fontSize: 13, fontFamily: 'inherit', flex: 1, color: 'var(--text-primary)' }} />
         </div>
-        <div style={{ display: 'flex', gap: 4, background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: 4 }}>
+        <div style={{ display: 'flex', gap: 4, background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: 4, flexWrap: 'wrap' }}>
           {['All', 'In Progress', 'Review', 'Planning'].map(f => (
             <button key={f} onClick={() => setFilter(f)} style={{
               padding: '5px 12px', borderRadius: 8, border: 'none', cursor: 'pointer',
@@ -113,7 +113,7 @@ export default function Projects() {
       </div>
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 24 }}>
+      <div className="grid-4" style={{ marginBottom: 24 }}>
         {[
           { label: 'Total Projects', value: projects.length, icon: FolderOpen, color: '#7c3aed' },
           { label: 'In Progress', value: projects.filter(p => p.status === 'In Progress').length, icon: TrendingUp, color: '#a855f7' },
@@ -134,7 +134,7 @@ export default function Projects() {
 
       {/* Grid/List */}
       {view === 'grid' ? (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: 16 }}>
           {filtered.map(p => (
             <div key={p.id} className="card" style={{ padding: '20px', cursor: 'pointer', transition: 'all 0.2s', position: 'relative' }}
               onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 40px rgba(124,58,237,0.12)'; }}
