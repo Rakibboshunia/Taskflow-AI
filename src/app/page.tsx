@@ -49,7 +49,7 @@ export default function Home() {
 
   if (isCheckingAuth) {
     return (
-      <div style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-main)' }}>
+      <div style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-app)' }}>
         <div style={{ width: 40, height: 40, border: '3px solid var(--border)', borderTopColor: 'var(--primary)', borderRadius: '50%', animation: 'spin-slow 1s linear infinite' }} />
       </div>
     );
@@ -102,7 +102,7 @@ export default function Home() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg-main)', position: 'relative' }}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg-app)', position: 'relative' }}>
       {/* Mobile overlay backdrop */}
       {isMobile && sidebarOpen && (
         <div

@@ -6,6 +6,7 @@
   --primary-light: #6366f1;
   --primary-dark: #4338ca;
   --primary-glow: rgba(79, 70, 229, 0.12);
+  --bg-app: linear-gradient(135deg, #f4f7fc 0%, #f9fafb 50%, #f0efff 100%);
   --bg-main: #f8fafc;
   --bg-sidebar: rgba(255, 255, 255, 0.85);
   --bg-card: #ffffff;
@@ -33,6 +34,7 @@
   --primary-light: #a5b4fc;
   --primary-dark: #6366f1;
   --primary-glow: rgba(129, 140, 248, 0.15);
+  --bg-app: linear-gradient(135deg, #11101a 0%, #09090b 50%, #120a1f 100%);
   --bg-main: #09090b;
   --bg-sidebar: rgba(9, 9, 11, 0.85);
   --bg-card: #18181b;
@@ -67,7 +69,7 @@ html {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--bg-main);
+  background: var(--bg-app);
   color: var(--text-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -405,7 +407,7 @@ body {
   display: flex;
   height: 100vh;
   width: 100vw;
-  background: var(--bg-main);
+  background: var(--bg-app);
   overflow: hidden;
 }
 .auth-brand {
@@ -422,7 +424,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 24px;
-  background: var(--bg-main);
+  background: var(--bg-card);
   overflow-y: auto;
 }
 @media (max-width: 768px) {
