@@ -220,9 +220,9 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
         </button>
 
         {showNotifications && (
-          <div style={{
+          <div className="dropdown-popup" style={{
             position: 'absolute', top: 'calc(100% + 10px)', right: 0,
-            width: 320, maxWidth: 'calc(100vw - 32px)', background: 'white', borderRadius: 16,
+            width: 320, maxWidth: 'calc(100vw - 32px)', background: 'var(--bg-card)', borderRadius: 16,
             boxShadow: '0 12px 40px rgba(0,0,0,0.12)', border: '1px solid var(--border)',
             zIndex: 100, overflow: 'hidden', animation: 'fadeInUp 0.2s ease'
           }}>
@@ -292,9 +292,9 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
         </button>
 
         {showProfile && (
-          <div style={{
+          <div className="dropdown-popup" style={{
             position: 'absolute', top: 'calc(100% + 10px)', right: 0,
-            width: 240, maxWidth: 'calc(100vw - 32px)', background: 'white', borderRadius: 16,
+            width: 240, maxWidth: 'calc(100vw - 32px)', background: 'var(--bg-card)', borderRadius: 16,
             boxShadow: '0 12px 40px rgba(0,0,0,0.14)', border: '1px solid var(--border)',
             zIndex: 200, overflow: 'hidden', animation: 'fadeInUp 0.2s ease'
           }}>

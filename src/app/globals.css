@@ -344,6 +344,16 @@ body {
   /* Hide search bar on mobile */
   .search-bar { display: none !important; }
 
+  /* Dropdown popup fixed positioning on mobile */
+  .dropdown-popup {
+    position: fixed !important;
+    top: 76px !important;
+    right: 16px !important;
+    left: 16px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
   /* Header adjustments */
   header { padding: 0 12px !important; gap: 8px !important; }
 
