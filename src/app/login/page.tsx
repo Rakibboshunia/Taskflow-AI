@@ -39,9 +39,10 @@ export default function LoginPage() {
             width: 80, height: 80, borderRadius: 24,
             background: 'linear-gradient(135deg, rgba(79,70,229,0.6), rgba(124,58,237,0.6))',
             backdropFilter: 'blur(20px)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '0 auto 30px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 20px 60px rgba(0,0,0,0.4)'
+            margin: '0 auto 30px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
+            overflow: 'hidden'
           }}>
-            <Sparkles size={38} color="white" strokeWidth={1.8} />
+            <img src="/logo.png" alt="TaskFlow AI" style={{ width: 60, height: 60, objectFit: 'contain' }} />
           </div>
           <h1 style={{ fontSize: 40, fontWeight: 800, marginBottom: 16, lineHeight: 1.15, letterSpacing: '-0.5px' }}>Welcome to<br />TaskFlow AI</h1>
           <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, marginBottom: 40 }}>

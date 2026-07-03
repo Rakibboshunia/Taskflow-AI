@@ -49,8 +49,9 @@ export default function Home() {
 
   if (isCheckingAuth) {
     return (
-      <div style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-app)' }}>
-        <div style={{ width: 40, height: 40, border: '3px solid var(--border)', borderTopColor: 'var(--primary)', borderRadius: '50%', animation: 'spin-slow 1s linear infinite' }} />
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-app)', gap: 20 }}>
+        <img src="/logo.png" alt="TaskFlow AI" style={{ width: 64, height: 64, objectFit: 'contain', animation: 'pulse 2s ease-in-out infinite' }} />
+        <div style={{ width: 32, height: 32, border: '3px solid var(--border)', borderTopColor: 'var(--primary)', borderRadius: '50%', animation: 'spin-slow 1s linear infinite' }} />
       </div>
     );
   }

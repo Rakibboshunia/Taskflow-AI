@@ -69,15 +69,9 @@ export default function Sidebar({ activePage, setActivePage, isOpen, onClose }: 
       {/* Logo */}
       <div style={{ padding: '20px 16px 16px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{
-            width: 38, height: 38, borderRadius: 12,
-            background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 6px 20px rgba(79,70,229,0.4)',
-            flexShrink: 0
-          }}>
-            <Sparkles size={18} color="white" strokeWidth={2.5} />
-          </div>
+          <img src="/logo.png" alt="TaskFlow AI" style={{
+            width: 38, height: 38, borderRadius: 10, objectFit: 'contain', flexShrink: 0
+          }} />
           <div>
             <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--text-primary)', letterSpacing: '-0.4px', lineHeight: 1.2 }}>
               TaskFlow<span style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}> AI</span>

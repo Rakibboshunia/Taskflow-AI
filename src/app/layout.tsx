@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "TaskFlow AI – AI-Powered Project Management",
   description: "Manage projects smarter with AI. TaskFlow AI helps teams organize tasks, track progress, and collaborate efficiently with the power of artificial intelligence.",
   keywords: "project management, AI, task tracking, team collaboration, productivity",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "TaskFlow AI – AI-Powered Project Management",
     description: "Manage projects smarter with AI.",
