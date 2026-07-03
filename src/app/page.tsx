@@ -102,7 +102,7 @@ export default function Home() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg-main)' }}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg-main)', position: 'relative' }}>
       {/* Mobile overlay backdrop */}
       {isMobile && sidebarOpen && (
         <div
@@ -136,7 +136,7 @@ export default function Home() {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
         />
-        <main style={{ flex: 1, overflow: 'auto', padding: 'clamp(12px, 3vw, 24px)' }}>
+        <main style={{ flex: 1, overflow: 'auto', overflowX: 'hidden', padding: 'clamp(12px, 3vw, 24px)' }}>
           {renderPage()}
         </main>
       </div>

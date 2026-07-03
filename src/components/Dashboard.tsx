@@ -263,7 +263,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
       </div>
 
       {/* Bottom Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px 220px', gap: 20 }}>
+      <div className="bottom-grid">
         {/* Recent Projects */}
         <div className="card" style={{ padding: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
@@ -277,7 +277,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
               <div key={i} style={{
                 display: 'flex', alignItems: 'center', gap: 12,
                 padding: '10px 14px', borderRadius: 12, border: '1px solid var(--border)',
-                transition: 'all 0.2s', cursor: 'pointer'
+                transition: 'all 0.2s', cursor: 'pointer', flexWrap: 'wrap'
               }}
                 onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#a855f7'; (e.currentTarget as HTMLDivElement).style.background = '#faf5ff'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--border)'; (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
@@ -297,7 +297,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
                   <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>Updated {p.updated}</p>
                 </div>
                 {/* Progress */}
-                <div style={{ width: 120 }}>
+                <div style={{ minWidth: 100, flex: 1 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                     <span style={{ fontSize: 10, color: 'var(--text-muted)' }}>Progress</span>
                     <span style={{ fontSize: 10, fontWeight: 600, color: 'var(--text-primary)' }}>{p.progress}%</span>

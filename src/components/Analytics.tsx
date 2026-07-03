@@ -125,7 +125,7 @@ export default function Analytics() {
       </div>
 
       {/* Charts Row 2 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+      <div className="grid-2">
         {/* Weekly Task Activity */}
         <div className="card" style={{ padding: '24px' }}>
           <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>Weekly Task Activity</h2>
