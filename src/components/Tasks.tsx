@@ -148,7 +148,7 @@ export default function Tasks() {
 
       {/* Kanban View */}
       {view === 'kanban' ? (
-        <div className="grid-4" style={{ overflowX: 'auto' }}>
+        <div style={{ display: 'flex', gap: 16, overflowX: 'auto', paddingBottom: 16 }}>
           {columns.map(col => (
             <div key={col}
               onDragOver={e => { e.preventDefault(); setDragOver(col); }}
@@ -157,7 +157,7 @@ export default function Tasks() {
                 background: dragOver === col ? '#f0ebff' : 'var(--bg-main)',
                 borderRadius: 16, padding: 14,
                 border: `1px solid ${dragOver === col ? '#a855f7' : 'var(--border-light)'}`,
-                minWidth: 240, transition: 'all 0.2s'
+                minWidth: 260, flexShrink: 0, transition: 'all 0.2s'
               }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
                 {statusIcons[col]}
