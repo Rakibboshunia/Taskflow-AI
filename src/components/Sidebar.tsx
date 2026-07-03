@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useRef, useEffect } from 'react';
 import { Page } from '@/app/page';
 import {
   LayoutDashboard, FolderOpen, CheckSquare, Bot, Calendar,
@@ -31,6 +32,25 @@ const bottomItems = [
 ];
 
 export default function Sidebar({ activePage, setActivePage, isOpen, onClose }: SidebarProps) {
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('taskflow-auth');
+    window.location.href = '/login';
+  };
+
   return (
     <aside style={{
       position: 'fixed',
@@ -198,31 +218,74 @@ export default function Sidebar({ activePage, setActivePage, isOpen, onClose }: 
           <div style={{ height: 4, background: '#c4b5fd', borderRadius: 10, marginBottom: 10 }}>
             <div style={{ height: '100%', width: '67%', background: 'linear-gradient(90deg,#7c3aed,#a855f7)', borderRadius: 10 }} />
           </div>
-          <button className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: 12, padding: '7px 12px' }}>
+          <button onClick={() => setShowUpgradeModal(true)} className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: 12, padding: '7px 12px' }}>
             Upgrade Plan
           </button>
         </div>
 
         {/* User */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px',
-          cursor: 'pointer', borderRadius: 10, transition: 'background 0.2s'
-        }}>
-          <div style={{
-            width: 32, height: 32, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #7c3aed, #a855f7)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: 'white', fontSize: 12, fontWeight: 700, flexShrink: 0
-          }}>AR</div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
-              Al Rakeb Rasel
+        <div ref={userMenuRef} style={{ position: 'relative' }}>
+          <div onClick={() => setShowUserMenu(!showUserMenu)} style={{
+            display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px',
+            cursor: 'pointer', borderRadius: 10, transition: 'background 0.2s',
+            background: showUserMenu ? 'var(--bg-card-hover)' : 'transparent'
+          }}>
+            <div style={{
+              width: 32, height: 32, borderRadius: '50%',
+              background: 'linear-gradient(135deg, #7c3aed, #a855f7)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: 'white', fontSize: 12, fontWeight: 700, flexShrink: 0
+            }}>AR</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                Al Rakeb Rasel
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>admin@taskflow.ai</div>
             </div>
-            <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>admin@taskflow.ai</div>
+            <ChevronDown size={14} color="var(--text-muted)" style={{ transform: showUserMenu ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
           </div>
-          <ChevronDown size={14} color="var(--text-muted)" />
+
+          {showUserMenu && (
+            <div style={{
+              position: 'absolute', bottom: 'calc(100% + 10px)', left: 0, right: 0,
+              background: 'var(--bg-card)', borderRadius: 12, border: '1px solid var(--border)',
+              boxShadow: '0 8px 30px rgba(0,0,0,0.12)', zIndex: 200, padding: 8,
+              animation: 'fadeInUp 0.2s ease'
+            }}>
+              <button onClick={() => { setActivePage('settings'); setShowUserMenu(false); }} style={{
+                display: 'block', width: '100%', padding: '10px 12px', textAlign: 'left',
+                background: 'transparent', border: 'none', cursor: 'pointer',
+                fontSize: 13, color: 'var(--text-primary)', borderRadius: 8, transition: 'background 0.2s'
+              }} onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-card-hover)'} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                Account Settings
+              </button>
+              <button onClick={handleLogout} style={{
+                display: 'block', width: '100%', padding: '10px 12px', textAlign: 'left',
+                background: 'transparent', border: 'none', cursor: 'pointer', marginTop: 4,
+                fontSize: 13, color: '#ef4444', borderRadius: 8, transition: 'background 0.2s'
+              }} onMouseEnter={e => e.currentTarget.style.background = '#fef2f2'} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                Log out
+              </button>
+            </div>
+          )}
         </div>
       </div>
+
+      {showUpgradeModal && (
+        <div style={{ position: 'fixed', inset: 0, background: 'var(--overlay-bg)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)' }}>
+          <div style={{ background: 'var(--bg-card)', width: 400, maxWidth: '90%', borderRadius: 24, padding: 32, textAlign: 'center', border: '1px solid var(--border)', boxShadow: '0 20px 60px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.3s ease' }}>
+            <div style={{ width: 64, height: 64, borderRadius: 20, background: 'linear-gradient(135deg, #7c3aed, #a855f7)', margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Crown size={32} color="white" />
+            </div>
+            <h2 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>Upgrade to Pro</h2>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: 24, fontSize: 14 }}>Get unlimited projects, advanced AI features, and priority support.</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <button onClick={() => { setShowUpgradeModal(false); setActivePage('settings'); }} className="btn-primary" style={{ padding: 14, justifyContent: 'center' }}>Upgrade Now - $12/mo</button>
+              <button onClick={() => setShowUpgradeModal(false)} style={{ padding: 14, background: 'transparent', border: 'none', color: 'var(--text-muted)', fontWeight: 600, cursor: 'pointer' }}>Maybe Later</button>
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
   );
 }
