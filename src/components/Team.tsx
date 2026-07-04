@@ -100,12 +100,12 @@ export default function Team() {
     <div style={{ animation: 'fadeInUp 0.4s ease' }} onClick={() => setMenuOpen(null)}>
       {/* Toolbar */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 24, alignItems: 'center', flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 200px', background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: '9px 14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 200px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: '9px 14px' }}>
           <Search size={14} color="var(--text-muted)" />
           <input type="text" placeholder="Search team..." value={search} onChange={e => setSearch(e.target.value)}
             style={{ border: 'none', outline: 'none', background: 'transparent', fontSize: 13, fontFamily: 'inherit', flex: 1, color: 'var(--text-primary)' }} />
         </div>
-        <div style={{ display: 'flex', gap: 4, background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: 4, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 4, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: 4, flexWrap: 'wrap' }}>
           {depts.map(d => (
             <button key={d} onClick={() => setDept(d)} style={{
               padding: '5px 12px', borderRadius: 8, border: 'none', cursor: 'pointer',
@@ -143,7 +143,7 @@ export default function Team() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                 <div style={{ position: 'relative' }}>
                   <div style={{ width: 52, height: 52, borderRadius: 16, background: `linear-gradient(135deg, ${member.color}, ${member.color}aa)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 16, fontWeight: 700 }}>{member.initials}</div>
-                  <span style={{ position: 'absolute', bottom: -2, right: -2, width: 12, height: 12, borderRadius: '50%', background: statusConfig[member.status].color, border: '2px solid white' }} />
+                  <span style={{ position: 'absolute', bottom: -2, right: -2, width: 12, height: 12, borderRadius: '50%', background: statusConfig[member.status].color, border: '2px solid var(--bg-card-solid)' }} />
                 </div>
                 <div>
                   <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>{member.name}</p>
@@ -159,7 +159,7 @@ export default function Team() {
                   <MoreHorizontal size={16} />
                 </button>
                 {menuOpen === member.id && (
-                  <div onClick={e => e.stopPropagation()} style={{ position: 'absolute', right: 0, top: 22, background: 'white', border: '1px solid var(--border)', borderRadius: 10, boxShadow: '0 8px 24px rgba(0,0,0,0.12)', zIndex: 200, minWidth: 130, overflow: 'hidden' }}>
+                  <div onClick={e => e.stopPropagation()} style={{ position: 'absolute', right: 0, top: 22, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, boxShadow: '0 8px 24px rgba(0,0,0,0.12)', zIndex: 200, minWidth: 130, overflow: 'hidden' }}>
                     <button onClick={() => openEdit(member)} style={{ width: '100%', padding: '9px 14px', border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 12, textAlign: 'left', display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-primary)', fontFamily: 'inherit' }}
                       onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = '#f5f3ff'}
                       onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = 'transparent'}>
@@ -217,7 +217,7 @@ export default function Team() {
       {showMemberModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
           onClick={() => setShowMemberModal(false)}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: 20, padding: 28, width: '90%', maxWidth: 460, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease' }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: 'var(--modal-bg)', borderRadius: 20, padding: 28, width: '90%', maxWidth: 460, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 22 }}>
               <h2 style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-primary)' }}>{editMember ? 'Edit Member' : 'Add Team Member'}</h2>
               <button onClick={() => setShowMemberModal(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--text-muted)' }}><X size={20} /></button>
@@ -241,7 +241,7 @@ export default function Team() {
                 <div>
                   <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Status</label>
                   <select value={memberForm.status} onChange={e => setMemberForm(p => ({ ...p, status: e.target.value as any }))}
-                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'white', color: 'var(--text-primary)' }}>
+                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'var(--input-bg)', color: 'var(--text-primary)' }}>
                     <option value="online">Online</option>
                     <option value="away">Away</option>
                     <option value="offline">Offline</option>
@@ -272,7 +272,7 @@ export default function Team() {
       {showMsgModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
           onClick={() => setShowMsgModal(null)}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: 20, padding: 28, width: '90%', maxWidth: 400, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease' }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: 'var(--modal-bg)', borderRadius: 20, padding: 28, width: '90%', maxWidth: 400, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <div style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${showMsgModal.color}, ${showMsgModal.color}aa)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700, fontSize: 14 }}>{showMsgModal.initials}</div>

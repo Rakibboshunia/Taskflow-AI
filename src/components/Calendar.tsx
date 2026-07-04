@@ -76,11 +76,11 @@ export default function Calendar() {
           </h2>
           <div style={{ display: 'flex', gap: 8 }}>
             <button onClick={() => setCurrent(new Date(year, month - 1, 1))}
-              style={{ width: 34, height: 34, borderRadius: 10, border: '1px solid var(--border)', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', transition: 'all 0.2s' }}>
+              style={{ width: 34, height: 34, borderRadius: 10, border: '1px solid var(--border)', background: 'var(--bg-card)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', transition: 'all 0.2s' }}>
               <ChevronLeft size={16} />
             </button>
             <button onClick={() => setCurrent(new Date(year, month + 1, 1))}
-              style={{ width: 34, height: 34, borderRadius: 10, border: '1px solid var(--border)', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', transition: 'all 0.2s' }}>
+              style={{ width: 34, height: 34, borderRadius: 10, border: '1px solid var(--border)', background: 'var(--bg-card)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', transition: 'all 0.2s' }}>
               <ChevronRight size={16} />
             </button>
             <button className="btn-primary" style={{ marginLeft: 4 }} onClick={() => { if (selected) openAddEvent(); }}>
@@ -105,11 +105,11 @@ export default function Calendar() {
               <div key={i} onClick={() => day && setSelected(key)}
                 style={{
                   minHeight: 80, padding: '8px', borderRadius: 10,
-                  background: isSelected ? 'linear-gradient(135deg, #7c3aed, #a855f7)' : isToday ? '#faf5ff' : 'var(--bg-main)',
-                  border: `1px solid ${isSelected ? 'transparent' : isToday ? '#ddd6fe' : 'transparent'}`,
+                  background: isSelected ? 'linear-gradient(135deg, #7c3aed, #a855f7)' : isToday ? 'rgba(124,58,237,0.1)' : 'var(--bg-main)',
+                  border: `1px solid ${isSelected ? 'transparent' : isToday ? '#c4b5fd' : 'transparent'}`,
                   cursor: day ? 'pointer' : 'default', transition: 'all 0.15s', opacity: day ? 1 : 0,
                 }}
-                onMouseEnter={e => { if (day && !isSelected) (e.currentTarget as HTMLDivElement).style.background = '#f5f3ff'; }}
+                onMouseEnter={e => { if (day && !isSelected) (e.currentTarget as HTMLDivElement).style.background = 'rgba(124,58,237,0.07)'; }}
                 onMouseLeave={e => { if (day && !isSelected) (e.currentTarget as HTMLDivElement).style.background = 'var(--bg-main)'; }}>
                 {day && (
                   <>
@@ -198,7 +198,7 @@ export default function Calendar() {
       {showModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
           onClick={() => setShowModal(false)}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: 20, padding: 28, width: '90%', maxWidth: 420, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease' }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: 'var(--modal-bg)', borderRadius: 20, padding: 28, width: '90%', maxWidth: 420, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 22 }}>
               <h2 style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-primary)' }}>Add Event</h2>
               <button onClick={() => setShowModal(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--text-muted)' }}><X size={20} /></button>

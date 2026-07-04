@@ -238,7 +238,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
               {notifications.length > 0 ? notifications.map(n => (
                 <div key={n.id} style={{ 
                   padding: '12px 16px', borderBottom: '1px solid var(--border-light)',
-                  background: n.read ? 'white' : '#faf5ff', cursor: 'pointer', transition: 'background 0.2s'
+                  background: n.read ? 'var(--bg-card)' : 'rgba(124,58,237,0.06)', cursor: 'pointer', transition: 'background 0.2s'
                 }} onClick={() => setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, read: true } : item))}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4 }}>
                     <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>{n.title}</p>
@@ -268,13 +268,13 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
           onClick={() => { setShowProfile(!showProfile); setShowNotifications(false); }}
           style={{
             display: 'flex', alignItems: 'center', gap: 8,
-            background: showProfile ? '#faf5ff' : 'transparent',
+            background: showProfile ? 'rgba(124,58,237,0.08)' : 'transparent',
             border: `1px solid ${showProfile ? 'var(--primary-light)' : 'transparent'}`,
             borderRadius: 12, padding: '4px 8px 4px 4px',
             cursor: 'pointer', transition: 'all 0.2s',
             boxShadow: showProfile ? '0 0 0 3px var(--primary-glow)' : 'none'
           }}
-          onMouseEnter={e => { if (!showProfile) { (e.currentTarget as HTMLButtonElement).style.background = '#f5f3ff'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border)'; } }}
+          onMouseEnter={e => { if (!showProfile) { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(124,58,237,0.06)'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border)'; } }}
           onMouseLeave={e => { if (!showProfile) { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'transparent'; } }}
         >
           <div style={{
@@ -301,7 +301,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
             {/* Profile Info */}
             <div style={{
               padding: '16px', borderBottom: '1px solid var(--border-light)',
-              background: 'linear-gradient(135deg, #faf5ff, #fff)'
+              background: 'linear-gradient(135deg, rgba(124,58,237,0.1), rgba(99,102,241,0.06))'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{
@@ -330,7 +330,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
                   cursor: 'pointer', borderRadius: 10, transition: 'all 0.15s',
                   textAlign: 'left', fontFamily: 'inherit'
                 }}
-                onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = '#faf5ff'}
+                onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = 'rgba(124,58,237,0.08)'}
                 onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = 'transparent'}>
                 <div style={{ width: 32, height: 32, borderRadius: 10, background: '#ede9fe', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <User size={14} color="#7c3aed" />
@@ -347,7 +347,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
                   cursor: 'pointer', borderRadius: 10, transition: 'all 0.15s',
                   textAlign: 'left', fontFamily: 'inherit'
                 }}
-                onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = '#faf5ff'}
+                onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = 'rgba(124,58,237,0.08)'}
                 onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = 'transparent'}>
                 <div style={{ width: 32, height: 32, borderRadius: 10, background: '#ede9fe', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <Settings size={14} color="#7c3aed" />
@@ -392,7 +392,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
           backdropFilter: 'blur(4px)'
         }}>
           <div style={{
-            background: 'white', borderRadius: 20, padding: 28,
+            background: 'var(--modal-bg)', borderRadius: 20, padding: 28,
             width: 360, boxShadow: '0 24px 64px rgba(0,0,0,0.2)',
             animation: 'fadeInUp 0.25s ease', textAlign: 'center'
           }}>
@@ -434,13 +434,13 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.45)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(6px)' }}
           onClick={() => setShowProfileModal(false)}>
           <div onClick={e => e.stopPropagation()} style={{
-            background: 'white', borderRadius: 24, width: '90%', maxWidth: 480,
+            background: 'var(--modal-bg)', borderRadius: 24, width: '90%', maxWidth: 480,
             boxShadow: '0 32px 80px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease', overflow: 'hidden'
           }}>
             {/* Cover */}
             <div style={{ height: 100, background: 'linear-gradient(135deg, #7c3aed, #a855f7, #6366f1)', position: 'relative' }}>
               <div style={{ position: 'absolute', top: 12, right: 12 }}>
-                <button onClick={() => setShowProfileModal(false)} style={{ width: 32, height: 32, borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.2)', cursor: 'pointer', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
+                <button onClick={() => setShowProfileModal(false)} style={{ width: 32, height: 32, borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.25)', cursor: 'pointer', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
                   ✕
                 </button>
               </div>
@@ -449,7 +449,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
                 position: 'absolute', bottom: -32, left: 24,
                 width: 64, height: 64, borderRadius: '50%',
                 background: 'linear-gradient(135deg, #7c3aed, #a855f7)',
-                border: '4px solid white', display: 'flex', alignItems: 'center',
+                border: '4px solid var(--bg-main)', display: 'flex', alignItems: 'center',
                 justifyContent: 'center', color: 'white', fontSize: 20, fontWeight: 800,
                 boxShadow: '0 8px 24px rgba(124,58,237,0.4)'
               }}>AR</div>
@@ -511,12 +511,12 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.45)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(6px)' }}
           onClick={() => setShowSettingsModal(false)}>
           <div onClick={e => e.stopPropagation()} style={{
-            background: 'white', borderRadius: 24, width: '90%', maxWidth: 520,
+            background: 'var(--modal-bg)', borderRadius: 24, width: '90%', maxWidth: 520,
             boxShadow: '0 32px 80px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease',
             maxHeight: '90vh', overflowY: 'auto'
           }}>
             {/* Header */}
-            <div style={{ padding: '22px 24px 16px', borderBottom: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'linear-gradient(135deg, #faf5ff, #fff)', position: 'sticky', top: 0, zIndex: 10 }}>
+            <div style={{ padding: '22px 24px 16px', borderBottom: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'linear-gradient(135deg, rgba(124,58,237,0.1), rgba(99,102,241,0.06))', position: 'sticky', top: 0, zIndex: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{ width: 36, height: 36, borderRadius: 10, background: '#ede9fe', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Settings size={18} color="#7c3aed" />
@@ -526,7 +526,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
                   <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>Manage your personal info & preferences</p>
                 </div>
               </div>
-              <button onClick={() => setShowSettingsModal(false)} style={{ width: 32, height: 32, borderRadius: '50%', border: '1px solid var(--border)', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>✕</button>
+              <button onClick={() => setShowSettingsModal(false)} style={{ width: 32, height: 32, borderRadius: '50%', border: '1px solid var(--border)', background: 'var(--bg-card)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>✕</button>
             </div>
 
             <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -588,7 +588,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
                         }}>
                         <span style={{
                           position: 'absolute', top: 3, left: (toggle.key === 'darkMode' ? darkMode : (settingsForm as any)[toggle.key]) ? 22 : 3,
-                          width: 18, height: 18, borderRadius: '50%', background: 'white',
+                          width: 18, height: 18, borderRadius: '50%', background: 'linear-gradient(135deg, #f7f5ff, #ffffff)',
                           boxShadow: '0 1px 4px rgba(0,0,0,0.2)', transition: 'left 0.25s'
                         }} />
                       </button>
@@ -603,7 +603,7 @@ export default function Header({ activePage, onMenuToggle, setActivePage, darkMo
                 <select
                   value={settingsForm.language}
                   onChange={e => setSettingsForm(p => ({ ...p, language: e.target.value }))}
-                  style={{ width: '100%', padding: '10px 14px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'white', color: 'var(--text-primary)' }}
+                  style={{ width: '100%', padding: '10px 14px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'var(--input-bg)', color: 'var(--text-primary)' }}
                   onFocus={e => (e.target.style.borderColor = '#a855f7')}
                   onBlur={e => (e.target.style.borderColor = 'var(--border)')}>
                   {['English', 'বাংলা', 'Arabic', 'French', 'Spanish'].map(l => <option key={l}>{l}</option>)}

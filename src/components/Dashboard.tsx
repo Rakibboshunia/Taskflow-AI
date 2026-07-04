@@ -139,7 +139,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
             <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>Project Activity</h2>
             <select style={{
               fontSize: 12, color: 'var(--text-secondary)', border: '1px solid var(--border)',
-              borderRadius: 8, padding: '5px 10px', background: 'white', cursor: 'pointer',
+              borderRadius: 8, padding: '5px 10px', background: 'var(--input-bg)', cursor: 'pointer',
               fontFamily: 'inherit', outline: 'none'
             }}>
               <option>This Week</option>
@@ -201,7 +201,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
                     }}
                     onMouseEnter={e => {
                       e.currentTarget.style.borderColor = '#a855f7';
-                      e.currentTarget.style.background = '#faf5ff';
+                      e.currentTarget.style.background = 'rgba(168,85,247,0.06)';
                       e.currentTarget.style.color = '#7c3aed';
                     }}
                     onMouseLeave={e => {
@@ -279,7 +279,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
                 padding: '10px 14px', borderRadius: 12, border: '1px solid var(--border)',
                 transition: 'all 0.2s', cursor: 'pointer', flexWrap: 'wrap'
               }}
-                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#a855f7'; (e.currentTarget as HTMLDivElement).style.background = '#faf5ff'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#a855f7'; (e.currentTarget as HTMLDivElement).style.background = 'rgba(168,85,247,0.06)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--border)'; (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
               >
                 {/* Icon */}
@@ -312,14 +312,14 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
                     <div key={j} style={{
                       width: 24, height: 24, borderRadius: '50%', marginLeft: j === 0 ? 0 : -8,
                       background: `hsl(${(j * 40 + 260)}, 70%, 60%)`,
-                      border: '2px solid white', display: 'flex', alignItems: 'center',
+                      border: '2px solid var(--bg-main)', display: 'flex', alignItems: 'center',
                       justifyContent: 'center', fontSize: 8, fontWeight: 700, color: 'white'
                     }}>{m}</div>
                   ))}
                   {p.extra > 0 && (
                     <div style={{
                       width: 24, height: 24, borderRadius: '50%', marginLeft: -8,
-                      background: '#e2d9f3', border: '2px solid white',
+                      background: '#e2d9f3', border: '2px solid var(--bg-main)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: 8, fontWeight: 700, color: '#7c3aed'
                     }}>+{p.extra}</div>

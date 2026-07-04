@@ -80,7 +80,7 @@ export default function Analytics() {
               <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>Monthly Trend</h2>
               <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>Projects & Tasks created over time</p>
             </div>
-            <select style={{ fontSize: 12, color: 'var(--text-secondary)', border: '1px solid var(--border)', borderRadius: 8, padding: '5px 10px', background: 'white', cursor: 'pointer', fontFamily: 'inherit', outline: 'none' }}>
+            <select style={{ fontSize: 12, color: 'var(--text-secondary)', border: '1px solid var(--border)', borderRadius: 8, padding: '5px 10px', background: 'var(--input-bg)', cursor: 'pointer', fontFamily: 'inherit', outline: 'none' }}>
               <option>2026</option>
               <option>2025</option>
             </select>

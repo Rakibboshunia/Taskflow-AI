@@ -85,12 +85,12 @@ export default function Projects() {
     <div style={{ animation: 'fadeInUp 0.4s ease' }} onClick={() => setMenuOpen(null)}>
       {/* Toolbar */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 24, alignItems: 'center', flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 220px', background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: '9px 14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 220px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: '9px 14px' }}>
           <Search size={14} color="var(--text-muted)" />
           <input type="text" placeholder="Search projects..." value={search} onChange={e => setSearch(e.target.value)}
             style={{ border: 'none', outline: 'none', background: 'transparent', fontSize: 13, fontFamily: 'inherit', flex: 1, color: 'var(--text-primary)' }} />
         </div>
-        <div style={{ display: 'flex', gap: 4, background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: 4, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 4, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: 4, flexWrap: 'wrap' }}>
           {['All', 'In Progress', 'Review', 'Planning'].map(f => (
             <button key={f} onClick={() => setFilter(f)} style={{
               padding: '5px 12px', borderRadius: 8, border: 'none', cursor: 'pointer',
@@ -100,7 +100,7 @@ export default function Projects() {
             }}>{f}</button>
           ))}
         </div>
-        <div style={{ display: 'flex', gap: 2, background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: 4 }}>
+        <div style={{ display: 'flex', gap: 2, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: 4 }}>
           {[{ v: 'grid', icon: '▦' }, { v: 'list', icon: '☰' }].map(({ v, icon }) => (
             <button key={v} onClick={() => setView(v as 'grid' | 'list')} style={{
               padding: '5px 10px', borderRadius: 8, border: 'none', cursor: 'pointer',
@@ -154,7 +154,7 @@ export default function Projects() {
                     <MoreHorizontal size={16} />
                   </button>
                   {menuOpen === p.id && (
-                    <div onClick={e => e.stopPropagation()} style={{ position: 'absolute', right: 0, top: 22, background: 'white', border: '1px solid var(--border)', borderRadius: 10, boxShadow: '0 8px 24px rgba(0,0,0,0.12)', zIndex: 200, minWidth: 130, overflow: 'hidden' }}>
+                    <div onClick={e => e.stopPropagation()} style={{ position: 'absolute', right: 0, top: 22, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, boxShadow: '0 8px 24px rgba(0,0,0,0.12)', zIndex: 200, minWidth: 130, overflow: 'hidden' }}>
                       <button onClick={() => openEdit(p)} style={{ width: '100%', padding: '9px 14px', border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 12, textAlign: 'left', display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-primary)', fontFamily: 'inherit' }}
                         onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = '#f5f3ff'}
                         onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = 'transparent'}>
@@ -193,7 +193,7 @@ export default function Projects() {
                 </div>
                 <div style={{ display: 'flex' }}>
                   {p.members.slice(0, 3).map((m, j) => (
-                    <div key={j} style={{ width: 22, height: 22, borderRadius: '50%', marginLeft: j === 0 ? 0 : -6, background: `hsl(${j * 50 + 260}, 65%, 58%)`, border: '2px solid white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 7, fontWeight: 700, color: 'white' }}>{m}</div>
+                    <div key={j} style={{ width: 22, height: 22, borderRadius: '50%', marginLeft: j === 0 ? 0 : -6, background: `hsl(${j * 50 + 260}, 65%, 58%)`, border: '2px solid var(--bg-main)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 7, fontWeight: 700, color: 'white' }}>{m}</div>
                   ))}
                 </div>
               </div>
@@ -213,7 +213,7 @@ export default function Projects() {
             <tbody>
               {filtered.map(p => (
                 <tr key={p.id} style={{ borderTop: '1px solid var(--border-light)', transition: 'background 0.15s', cursor: 'pointer' }}
-                  onMouseEnter={e => (e.currentTarget as HTMLTableRowElement).style.background = '#faf5ff'}
+                  onMouseEnter={e => (e.currentTarget as HTMLTableRowElement).style.background = 'rgba(168,85,247,0.06)'}
                   onMouseLeave={e => (e.currentTarget as HTMLTableRowElement).style.background = 'transparent'}>
                   <td style={{ padding: '14px 16px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -239,7 +239,7 @@ export default function Projects() {
                   <td style={{ padding: '14px 16px' }}>
                     <div style={{ display: 'flex' }}>
                       {p.members.slice(0, 3).map((m, j) => (
-                        <div key={j} style={{ width: 24, height: 24, borderRadius: '50%', marginLeft: j === 0 ? 0 : -8, background: `hsl(${j * 50 + 260}, 65%, 58%)`, border: '2px solid white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: 'white' }}>{m}</div>
+                        <div key={j} style={{ width: 24, height: 24, borderRadius: '50%', marginLeft: j === 0 ? 0 : -8, background: `hsl(${j * 50 + 260}, 65%, 58%)`, border: '2px solid var(--bg-main)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: 'white' }}>{m}</div>
                       ))}
                     </div>
                   </td>
@@ -260,7 +260,7 @@ export default function Projects() {
       {showModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
           onClick={() => setShowModal(false)}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: 20, padding: 28, width: '90%', maxWidth: 500, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease', maxHeight: '90vh', overflowY: 'auto' }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: 'var(--modal-bg)', borderRadius: 20, padding: 28, width: '90%', maxWidth: 500, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease', maxHeight: '90vh', overflowY: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 22 }}>
               <h2 style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-primary)' }}>{editProject ? 'Edit Project' : 'New Project'}</h2>
               <button onClick={() => setShowModal(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--text-muted)' }}><X size={20} /></button>
@@ -289,14 +289,14 @@ export default function Projects() {
                 <div>
                   <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Status</label>
                   <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as ProjectStatus }))}
-                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'white', color: 'var(--text-primary)' }}>
+                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'var(--input-bg)', color: 'var(--text-primary)' }}>
                     {(['In Progress', 'Review', 'Planning', 'Completed'] as ProjectStatus[]).map(s => <option key={s}>{s}</option>)}
                   </select>
                 </div>
                 <div>
                   <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Priority</label>
                   <select value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value as ProjectPriority }))}
-                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'white', color: 'var(--text-primary)' }}>
+                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'var(--input-bg)', color: 'var(--text-primary)' }}>
                     {(['High', 'Medium', 'Low'] as ProjectPriority[]).map(s => <option key={s}>{s}</option>)}
                   </select>
                 </div>

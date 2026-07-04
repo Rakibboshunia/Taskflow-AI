@@ -70,7 +70,7 @@ export default function AIAssistantPage() {
         <div style={{
           padding: '18px 24px', borderBottom: '1px solid var(--border)',
           display: 'flex', alignItems: 'center', gap: 12,
-          background: 'linear-gradient(135deg, #faf5ff, #fff)'
+          background: 'linear-gradient(135deg, rgba(124,58,237,0.1), rgba(99,102,241,0.05))'
         }}>
           <div style={{
             width: 44, height: 44, borderRadius: 12,
@@ -164,7 +164,7 @@ export default function AIAssistantPage() {
         </div>
 
         {/* Input */}
-        <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border)', background: 'white' }}>
+        <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border)', background: 'var(--bg-card)' }}>
           <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end' }}>
             <textarea
               value={input}
@@ -213,7 +213,7 @@ export default function AIAssistantPage() {
                   cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left',
                   transition: 'all 0.2s', alignItems: 'flex-start'
                 }}
-                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#faf5ff'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#a855f7'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(124,58,237,0.07)'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#a855f7'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'var(--bg-main)'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border)'; }}>
                 <div style={{ width: 32, height: 32, borderRadius: 8, background: '#ede9fe', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <s.icon size={15} color="#7c3aed" />

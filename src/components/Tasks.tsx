@@ -106,13 +106,13 @@ export default function Tasks() {
     <div style={{ animation: 'fadeInUp 0.4s ease' }} onClick={() => setMenuOpen(null)}>
       {/* Header */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 24, alignItems: 'center', flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 200px', background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: '9px 14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 200px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: '9px 14px' }}>
           <Search size={14} color="var(--text-muted)" />
           <input type="text" placeholder="Search tasks..." value={search} onChange={e => setSearch(e.target.value)}
             style={{ border: 'none', outline: 'none', background: 'transparent', fontSize: 13, fontFamily: 'inherit', flex: 1, color: 'var(--text-primary)' }} />
         </div>
 
-        <div style={{ display: 'flex', gap: 2, background: 'white', border: '1px solid var(--border)', borderRadius: 10, padding: 4 }}>
+        <div style={{ display: 'flex', gap: 2, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: 4 }}>
           {[{ v: 'kanban', label: 'Kanban' }, { v: 'list', label: 'List' }].map(({ v, label }) => (
             <button key={v} onClick={() => setView(v as 'list' | 'kanban')} style={{
               padding: '5px 14px', borderRadius: 8, border: 'none', cursor: 'pointer',
@@ -183,7 +183,7 @@ export default function Tasks() {
                         </button>
                         {menuOpen === task.id && (
                           <div onClick={e => e.stopPropagation()} style={{
-                            position: 'absolute', right: 0, top: 20, background: 'white', border: '1px solid var(--border)',
+                            position: 'absolute', right: 0, top: 20, background: 'var(--bg-card)', border: '1px solid var(--border)',
                             borderRadius: 10, boxShadow: '0 8px 24px rgba(0,0,0,0.12)', zIndex: 200, minWidth: 130, overflow: 'hidden'
                           }}>
                             <button onClick={() => openEdit(task)} style={{ width: '100%', padding: '9px 14px', border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 12, textAlign: 'left', display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-primary)', fontFamily: 'inherit' }}
@@ -254,7 +254,7 @@ export default function Tasks() {
             <tbody>
               {filtered.map(task => (
                 <tr key={task.id} style={{ borderTop: '1px solid var(--border-light)', cursor: 'pointer', transition: 'background 0.15s' }}
-                  onMouseEnter={e => (e.currentTarget as HTMLTableRowElement).style.background = '#faf5ff'}
+                  onMouseEnter={e => (e.currentTarget as HTMLTableRowElement).style.background = 'rgba(168,85,247,0.06)'}
                   onMouseLeave={e => (e.currentTarget as HTMLTableRowElement).style.background = 'transparent'}>
                   <td style={{ padding: '14px 16px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -294,7 +294,7 @@ export default function Tasks() {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
           onClick={() => setShowModal(false)}>
           <div onClick={e => e.stopPropagation()} style={{
-            background: 'white', borderRadius: 20, padding: 28, width: '90%', maxWidth: 480,
+            background: 'var(--modal-bg)', borderRadius: 20, padding: 28, width: '90%', maxWidth: 480,
             boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 22 }}>
@@ -320,14 +320,14 @@ export default function Tasks() {
                 <div>
                   <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Priority</label>
                   <select value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value as Priority }))}
-                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'white', color: 'var(--text-primary)' }}>
+                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'var(--input-bg)', color: 'var(--text-primary)' }}>
                     {(['High', 'Medium', 'Low'] as Priority[]).map(p => <option key={p}>{p}</option>)}
                   </select>
                 </div>
                 <div>
                   <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Status</label>
                   <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as Status }))}
-                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'white', color: 'var(--text-primary)' }}>
+                    style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'var(--input-bg)', color: 'var(--text-primary)' }}>
                     {columns.map(s => <option key={s}>{s}</option>)}
                   </select>
                 </div>
