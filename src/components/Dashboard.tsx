@@ -10,6 +10,8 @@ import {
   ArrowUpRight, AlertCircle, CheckSquare
 } from 'lucide-react';
 
+import { useGlobalContext } from '@/context/GlobalContext';
+
 const activityData = [
   { day: 'Mon', tasks: 42 },
   { day: 'Tue', tasks: 55 },
@@ -18,27 +20,6 @@ const activityData = [
   { day: 'Fri', tasks: 95 },
   { day: 'Sat', tasks: 60 },
   { day: 'Sun', tasks: 35 },
-];
-
-const recentProjects = [
-  { name: 'AI SaaS Dashboard', updated: '2h ago', progress: 75, members: ['AR', 'SI', 'TH'], extra: 3, status: 'In Progress', color: '#7c3aed' },
-  { name: 'E-commerce Platform', updated: '5h ago', progress: 60, members: ['AR', 'SI'], extra: 2, status: 'In Progress', color: '#7c3aed' },
-  { name: 'Mobile Banking App', updated: '1d ago', progress: 90, members: ['TH', 'JF', 'AR', 'SI'], extra: 4, status: 'Review', color: '#f59e0b' },
-  { name: 'Marketing Website', updated: '2d ago', progress: 40, members: ['SI', 'AR'], extra: 1, status: 'Planning', color: '#94a3b8' },
-];
-
-const upcomingTasks = [
-  { title: 'UI/UX Design Review', project: 'Website Redesign', date: 'May 20', priority: 'high' },
-  { title: 'API Integration', project: 'Mobile App', date: 'May 21', priority: 'medium' },
-  { title: 'Database Optimization', project: 'Dashboard', date: 'May 22', priority: 'medium' },
-  { title: 'Testing & Bug Fixes', project: 'E-commerce Platform', date: 'May 23', priority: 'low' },
-];
-
-const teamMembers = [
-  { name: 'Rasel Ahmed', role: 'UI/UX Designer', initials: 'RA', status: 'online', color: '#7c3aed' },
-  { name: 'Sadia Islam', role: 'Frontend Developer', initials: 'SI', status: 'online', color: '#a855f7' },
-  { name: 'Tanvir Hasan', role: 'Backend Developer', initials: 'TH', status: 'away', color: '#3b82f6' },
-  { name: 'Jannatul Ferdaus', role: 'QA Engineer', initials: 'JF', status: 'online', color: '#10b981' },
 ];
 
 const aiSuggestions = [
@@ -96,6 +77,7 @@ function PriorityDot({ priority }: { priority: string }) {
 }
 
 export default function Dashboard({ setActivePage }: { setActivePage?: (page: any) => void }) {
+  const { tasks, projects, members } = useGlobalContext();
   const [aiInput, setAiInput] = useState('');
   const [aiMessages, setAiMessages] = useState<Array<{ role: 'user' | 'ai'; text: string }>>([]);
   const [aiLoading, setAiLoading] = useState(false);
@@ -115,20 +97,26 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
     }, 1200);
   };
 
+  const completedProjects = projects.filter(p => p.status === 'Completed').length;
+  const inProgressProjects = projects.filter(p => p.status === 'In Progress').length;
+  const planningProjects = projects.filter(p => p.status === 'Planning').length;
+  
+  const totalProjects = projects.length || 1; // avoid division by zero
+
   const donutData = [
-    { label: 'Completed', value: 8, color: '#7c3aed', pct: 33 },
-    { label: 'In Progress', value: 10, color: '#a855f7', pct: 42 },
-    { label: 'Planning', value: 6, color: '#e2d9f3', pct: 25 },
+    { label: 'Completed', value: completedProjects, color: '#7c3aed', pct: Math.round((completedProjects / totalProjects) * 100) },
+    { label: 'In Progress', value: inProgressProjects, color: '#a855f7', pct: Math.round((inProgressProjects / totalProjects) * 100) },
+    { label: 'Planning', value: planningProjects, color: '#e2d9f3', pct: Math.round((planningProjects / totalProjects) * 100) },
   ];
 
   return (
     <div style={{ animation: 'fadeInUp 0.4s ease', maxWidth: 1400 }}>
       {/* Stats */}
       <div className="grid-4" style={{ marginBottom: 24 }}>
-        <StatCard icon={FolderOpen} label="Total Projects" value="24" trend="12%" trendUp={true} gradient="linear-gradient(135deg, #4f46e5, #7c3aed)" iconColor="#4f46e5" />
-        <StatCard icon={CheckCircle} label="Tasks Completed" value="156" trend="18%" trendUp={true} gradient="linear-gradient(135deg, #10b981, #34d399)" iconColor="#10b981" />
-        <StatCard icon={Clock} label="In Progress" value="12" trend="5%" trendUp={false} gradient="linear-gradient(135deg, #f59e0b, #fbbf24)" iconColor="#f59e0b" />
-        <StatCard icon={Users} label="Total Members" value="18" trend="8%" trendUp={true} gradient="linear-gradient(135deg, #3b82f6, #60a5fa)" iconColor="#3b82f6" />
+        <StatCard icon={FolderOpen} label="Total Projects" value={projects.length} trend="12%" trendUp={true} gradient="linear-gradient(135deg, #4f46e5, #7c3aed)" iconColor="#4f46e5" />
+        <StatCard icon={CheckCircle} label="Tasks Completed" value={tasks.filter(t => t.status === 'Completed').length} trend="18%" trendUp={true} gradient="linear-gradient(135deg, #10b981, #34d399)" iconColor="#10b981" />
+        <StatCard icon={Clock} label="In Progress" value={inProgressProjects} trend="5%" trendUp={false} gradient="linear-gradient(135deg, #f59e0b, #fbbf24)" iconColor="#f59e0b" />
+        <StatCard icon={Users} label="Total Members" value={members.length} trend="8%" trendUp={true} gradient="linear-gradient(135deg, #3b82f6, #60a5fa)" iconColor="#3b82f6" />
       </div>
 
       {/* Main Grid: Chart + AI */}
@@ -273,7 +261,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
             </button>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {recentProjects.map((p, i) => (
+            {projects.slice(0, 4).map((p, i) => (
               <div key={i} style={{
                 display: 'flex', alignItems: 'center', gap: 12,
                 padding: '10px 14px', borderRadius: 12, border: '1px solid var(--border)',
@@ -294,7 +282,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
                   <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 2 }}>
                     {p.name}
                   </p>
-                  <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>Updated {p.updated}</p>
+                  <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>Due {p.due}</p>
                 </div>
                 {/* Progress */}
                 <div style={{ minWidth: 100, flex: 1 }}>
@@ -316,13 +304,13 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
                       justifyContent: 'center', fontSize: 8, fontWeight: 700, color: 'white'
                     }}>{m}</div>
                   ))}
-                  {p.extra > 0 && (
+                  {p.members.length > 2 && (
                     <div style={{
                       width: 24, height: 24, borderRadius: '50%', marginLeft: -8,
                       background: '#e2d9f3', border: '2px solid var(--bg-main)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: 8, fontWeight: 700, color: '#7c3aed'
-                    }}>+{p.extra}</div>
+                    }}>+{p.members.length - 2}</div>
                   )}
                 </div>
                 {/* Status */}
@@ -347,14 +335,14 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
             </button>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {upcomingTasks.map((t, i) => (
+            {tasks.filter(t => t.status !== 'Completed').slice(0, 4).map((t, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>
-                <PriorityDot priority={t.priority} />
+                <PriorityDot priority={t.priority.toLowerCase()} />
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.3 }}>{t.title}</p>
                   <p style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>{t.project}</p>
                 </div>
-                <span style={{ fontSize: 10, fontWeight: 600, color: '#7c3aed', whiteSpace: 'nowrap' }}>{t.date}</span>
+                <span style={{ fontSize: 10, fontWeight: 600, color: '#7c3aed', whiteSpace: 'nowrap' }}>{t.due}</span>
               </div>
             ))}
           </div>
@@ -369,7 +357,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
               <button onClick={() => setActivePage && setActivePage('team')} style={{ fontSize: 11, color: '#7c3aed', fontWeight: 600, border: 'none', background: 'transparent', cursor: 'pointer' }}>View all</button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {teamMembers.map((m, i) => (
+              {members.slice(0, 4).map((m, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <div style={{
                     width: 30, height: 30, borderRadius: '50%', flexShrink: 0,
@@ -409,7 +397,7 @@ export default function Dashboard({ setActivePage }: { setActivePage?: (page: an
                   position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
                   alignItems: 'center', justifyContent: 'center'
                 }}>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-primary)' }}>24</span>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-primary)' }}>{projects.length}</span>
                   <span style={{ fontSize: 8, color: 'var(--text-muted)' }}>Total</span>
                 </div>
               </div>

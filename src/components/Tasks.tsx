@@ -3,57 +3,34 @@
 import { useState, useRef } from 'react';
 import { Plus, Search, CheckCircle, Circle, Clock, AlertCircle, MoreHorizontal, Flag, X, Trash2, Edit2 } from 'lucide-react';
 
-type Status = 'Todo' | 'In Progress' | 'Review' | 'Completed';
-type Priority = 'High' | 'Medium' | 'Low';
+import { useGlobalContext, Task, TaskStatus, TaskPriority } from '@/context/GlobalContext';
 
-interface Task {
-  id: number;
-  title: string;
-  project: string;
-  assignee: string;
-  priority: Priority;
-  status: Status;
-  due: string;
-  tags: string[];
-}
-
-const initialTasks: Task[] = [
-  { id: 1, title: 'Design new onboarding flow', project: 'AI SaaS Dashboard', assignee: 'AR', priority: 'High', status: 'In Progress', due: 'Jun 20', tags: ['Design', 'UX'] },
-  { id: 2, title: 'Implement user authentication', project: 'Mobile Banking App', assignee: 'TH', priority: 'High', status: 'Completed', due: 'Jun 18', tags: ['Backend', 'Security'] },
-  { id: 3, title: 'Write API documentation', project: 'E-commerce Platform', assignee: 'SI', priority: 'Medium', status: 'Todo', due: 'Jun 25', tags: ['Docs'] },
-  { id: 4, title: 'Fix payment gateway bug', project: 'E-commerce Platform', assignee: 'TH', priority: 'High', status: 'In Progress', due: 'Jun 21', tags: ['Bug', 'Critical'] },
-  { id: 5, title: 'Create landing page mockups', project: 'Marketing Website', assignee: 'AR', priority: 'Low', status: 'Todo', due: 'Jul 1', tags: ['Design'] },
-  { id: 6, title: 'Database schema optimization', project: 'Analytics Platform', assignee: 'TH', priority: 'Medium', status: 'Review', due: 'Jun 28', tags: ['Backend', 'DB'] },
-  { id: 7, title: 'Setup CI/CD pipeline', project: 'AI SaaS Dashboard', assignee: 'SI', priority: 'Medium', status: 'Todo', due: 'Jun 30', tags: ['DevOps'] },
-  { id: 8, title: 'Conduct user testing sessions', project: 'Mobile Banking App', assignee: 'JF', priority: 'High', status: 'Completed', due: 'Jun 15', tags: ['Testing', 'UX'] },
-];
-
-const statusIcons: Record<Status, React.ReactNode> = {
+const statusIcons: Record<TaskStatus, React.ReactNode> = {
   'Completed': <CheckCircle size={16} color="#10b981" />,
   'In Progress': <Clock size={16} color="#7c3aed" />,
   'Todo': <Circle size={16} color="#94a3b8" />,
   'Review': <AlertCircle size={16} color="#f59e0b" />,
 };
 
-const priorityColors: Record<Priority, string> = {
+const priorityColors: Record<TaskPriority, string> = {
   'High': '#ef4444', 'Medium': '#f59e0b', 'Low': '#10b981'
 };
 
-const columns: Status[] = ['Todo', 'In Progress', 'Review', 'Completed'];
+const columns: TaskStatus[] = ['Todo', 'In Progress', 'Review', 'Completed'];
 
-const defaultForm = { title: '', project: '', assignee: '', priority: 'Medium' as Priority, status: 'Todo' as Status, due: '', tags: '' };
+const defaultForm = { title: '', project: '', assignee: '', priority: 'Medium' as TaskPriority, status: 'Todo' as TaskStatus, due: '', tags: '' };
 
 export default function Tasks() {
+  const { tasks, setTasks } = useGlobalContext();
   const [view, setView] = useState<'list' | 'kanban'>('kanban');
   const [search, setSearch] = useState('');
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [showModal, setShowModal] = useState(false);
   const [editTask, setEditTask] = useState<Task | null>(null);
   const [form, setForm] = useState(defaultForm);
   const [menuOpen, setMenuOpen] = useState<number | null>(null);
   const [dragging, setDragging] = useState<number | null>(null);
-  const [dragOver, setDragOver] = useState<Status | null>(null);
-  const nextId = useRef(tasks.length + 1);
+  const [dragOver, setDragOver] = useState<TaskStatus | null>(null);
+  const nextId = useRef(tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1);
 
   const filtered = tasks.filter(t => t.title.toLowerCase().includes(search.toLowerCase()));
 
@@ -90,12 +67,12 @@ export default function Tasks() {
   const toggleStatus = (id: number) => {
     setTasks(prev => prev.map(t => {
       if (t.id !== id) return t;
-      const next: Record<Status, Status> = { 'Todo': 'In Progress', 'In Progress': 'Review', 'Review': 'Completed', 'Completed': 'Todo' };
+      const next: Record<TaskStatus, TaskStatus> = { 'Todo': 'In Progress', 'In Progress': 'Review', 'Review': 'Completed', 'Completed': 'Todo' };
       return { ...t, status: next[t.status] };
     }));
   };
 
-  const handleDrop = (col: Status) => {
+  const handleDrop = (col: TaskStatus) => {
     if (dragging === null) return;
     setTasks(prev => prev.map(t => t.id === dragging ? { ...t, status: col } : t));
     setDragging(null);
@@ -319,14 +296,14 @@ export default function Tasks() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <div>
                   <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Priority</label>
-                  <select value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value as Priority }))}
+                  <select value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value as TaskPriority }))}
                     style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'var(--input-bg)', color: 'var(--text-primary)' }}>
-                    {(['High', 'Medium', 'Low'] as Priority[]).map(p => <option key={p}>{p}</option>)}
+                    {(['High', 'Medium', 'Low'] as TaskPriority[]).map(p => <option key={p}>{p}</option>)}
                   </select>
                 </div>
                 <div>
                   <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Status</label>
-                  <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as Status }))}
+                  <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as TaskStatus }))}
                     style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none', background: 'var(--input-bg)', color: 'var(--text-primary)' }}>
                     {columns.map(s => <option key={s}>{s}</option>)}
                   </select>

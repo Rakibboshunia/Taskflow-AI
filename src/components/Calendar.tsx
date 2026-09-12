@@ -4,31 +4,16 @@ import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Plus, X, Trash2 } from 'lucide-react';
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-type CalEvent = { title: string; time: string; color: string; project: string };
+import { useGlobalContext, CalEvent } from '@/context/GlobalContext';
 
 const colorOptions = ['#7c3aed', '#10b981', '#f59e0b', '#3b82f6', '#a855f7', '#ef4444', '#ec4899'];
-
-const initialEvents: Record<string, CalEvent[]> = {
-  '2026-07-03': [
-    { title: 'Design Review', time: '10:00 AM', color: '#7c3aed', project: 'AI Dashboard' },
-    { title: 'Team Standup', time: '9:00 AM', color: '#10b981', project: 'All Projects' },
-  ],
-  '2026-07-07': [{ title: 'Sprint Planning', time: '2:00 PM', color: '#f59e0b', project: 'E-commerce' }],
-  '2026-07-10': [
-    { title: 'Client Demo', time: '4:00 PM', color: '#3b82f6', project: 'Mobile App' },
-    { title: 'Code Review', time: '11:00 AM', color: '#a855f7', project: 'Banking App' },
-  ],
-  '2026-07-15': [{ title: 'Product Launch', time: '12:00 PM', color: '#ef4444', project: 'SaaS Platform' }],
-  '2026-07-20': [{ title: 'Retrospective', time: '3:00 PM', color: '#10b981', project: 'All Teams' }],
-};
 
 const defaultForm = { title: '', time: '10:00 AM', color: '#7c3aed', project: '' };
 
 export default function Calendar() {
+  const { events, setEvents } = useGlobalContext();
   const [current, setCurrent] = useState(new Date(2026, 6, 1));
   const [selected, setSelected] = useState<string | null>('2026-07-03');
-  const [events, setEvents] = useState<Record<string, CalEvent[]>>(initialEvents);
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState(defaultForm);
 

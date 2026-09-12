@@ -4,29 +4,7 @@
 import { useState, useRef } from 'react';
 import { Plus, Search, Mail, Phone, MoreHorizontal, Star, MessageSquare, X, Edit2, Trash2, Send } from 'lucide-react';
 
-interface Member {
-  id: number;
-  name: string;
-  role: string;
-  initials: string;
-  email: string;
-  phone: string;
-  projects: number;
-  tasks: number;
-  status: 'online' | 'away' | 'offline';
-  rating: number;
-  color: string;
-  dept: string;
-}
-
-const initialMembers: Member[] = [
-  { id: 1, name: 'Rasel Ahmed', role: 'UI/UX Designer', initials: 'RA', email: 'rasel@taskflow.ai', phone: '+880-1234-567890', projects: 5, tasks: 14, status: 'online', rating: 4.8, color: '#7c3aed', dept: 'Design' },
-  { id: 2, name: 'Sadia Islam', role: 'Frontend Developer', initials: 'SI', email: 'sadia@taskflow.ai', phone: '+880-9876-543210', projects: 4, tasks: 18, status: 'online', rating: 4.9, color: '#a855f7', dept: 'Engineering' },
-  { id: 3, name: 'Tanvir Hasan', role: 'Backend Developer', initials: 'TH', email: 'tanvir@taskflow.ai', phone: '+880-1122-334455', projects: 6, tasks: 22, status: 'away', rating: 4.7, color: '#3b82f6', dept: 'Engineering' },
-  { id: 4, name: 'Jannatul Ferdaus', role: 'QA Engineer', initials: 'JF', email: 'jannatul@taskflow.ai', phone: '+880-5566-778899', projects: 3, tasks: 10, status: 'online', rating: 4.6, color: '#10b981', dept: 'QA' },
-  { id: 5, name: 'Rahim Uddin', role: 'DevOps Engineer', initials: 'RU', email: 'rahim@taskflow.ai', phone: '+880-6677-889900', projects: 4, tasks: 12, status: 'offline', rating: 4.5, color: '#f59e0b', dept: 'Engineering' },
-  { id: 6, name: 'Nazma Khatun', role: 'Product Manager', initials: 'NK', email: 'nazma@taskflow.ai', phone: '+880-4433-221100', projects: 8, tasks: 30, status: 'online', rating: 5.0, color: '#ef4444', dept: 'Management' },
-];
+import { useGlobalContext, Member } from '@/context/GlobalContext';
 
 const statusConfig: Record<string, { color: string; label: string }> = {
   online: { color: '#10b981', label: 'Online' },
@@ -48,17 +26,18 @@ const colorOptions = ['#7c3aed', '#a855f7', '#3b82f6', '#10b981', '#f59e0b', '#e
 const defaultMemberForm: MemberForm = { name: '', role: '', email: '', phone: '', dept: '', color: '#7c3aed', status: 'online' };
 
 export default function Team() {
+  const { members, setMembers } = useGlobalContext();
   const [search, setSearch] = useState('');
   const [dept, setDept] = useState('All');
-  const [members, setMembers] = useState<Member[]>(initialMembers);
   const [showMemberModal, setShowMemberModal] = useState(false);
   const [showMsgModal, setShowMsgModal] = useState<Member | null>(null);
+  const [showProfileModal, setShowProfileModal] = useState<Member | null>(null);
   const [editMember, setEditMember] = useState<Member | null>(null);
   const [memberForm, setMemberForm] = useState<MemberForm>(defaultMemberForm);
   const [msgText, setMsgText] = useState('');
   const [sentMsg, setSentMsg] = useState(false);
   const [menuOpen, setMenuOpen] = useState<number | null>(null);
-  const nextId = useRef(initialMembers.length + 1);
+  const nextId = useRef(members.length > 0 ? Math.max(...members.map(m => m.id)) + 1 : 1);
 
   const depts = ['All', ...Array.from(new Set(members.map(m => m.dept)))];
   const filtered = members.filter(m => m.name.toLowerCase().includes(search.toLowerCase()) && (dept === 'All' || m.dept === dept));
@@ -206,7 +185,7 @@ export default function Team() {
               <button className="btn-primary" onClick={() => { setShowMsgModal(member); setSentMsg(false); setMsgText(''); }} style={{ flex: 1, justifyContent: 'center', fontSize: 12, padding: '8px 12px' }}>
                 <MessageSquare size={12} /> Message
               </button>
-              <button className="btn-secondary" style={{ flex: 1, justifyContent: 'center', fontSize: 12, padding: '8px 12px' }}>
+              <button className="btn-secondary" onClick={() => setShowProfileModal(member)} style={{ flex: 1, justifyContent: 'center', fontSize: 12, padding: '8px 12px' }}>
                 View Profile
               </button>
             </div>
@@ -304,6 +283,76 @@ export default function Team() {
                 </div>
               </>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Profile Modal */}
+      {showProfileModal && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
+          onClick={() => setShowProfileModal(null)}>
+          <div onClick={e => e.stopPropagation()} style={{ background: 'var(--modal-bg)', borderRadius: 24, padding: 32, width: '90%', maxWidth: 420, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', animation: 'fadeInUp 0.25s ease' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <div style={{ position: 'relative' }}>
+                  <div style={{ width: 64, height: 64, borderRadius: 20, background: `linear-gradient(135deg, ${showProfileModal.color}, ${showProfileModal.color}aa)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 24, fontWeight: 800 }}>{showProfileModal.initials}</div>
+                  <span style={{ position: 'absolute', bottom: -2, right: -2, width: 16, height: 16, borderRadius: '50%', background: statusConfig[showProfileModal.status].color, border: '3px solid var(--bg-card-solid)' }} />
+                </div>
+                <div>
+                  <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-primary)' }}>{showProfileModal.name}</h2>
+                  <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 2 }}>{showProfileModal.role}</p>
+                </div>
+              </div>
+              <button onClick={() => setShowProfileModal(null)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--text-muted)' }}><X size={20} /></button>
+            </div>
+
+            <div style={{ display: 'flex', gap: 10, marginBottom: 24 }}>
+              <span className="badge badge-primary">{showProfileModal.dept}</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 600, background: `${statusConfig[showProfileModal.status].color}18`, color: statusConfig[showProfileModal.status].color }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: statusConfig[showProfileModal.status].color }} />
+                {statusConfig[showProfileModal.status].label}
+              </span>
+            </div>
+
+            <div className="grid-3" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
+              <div style={{ padding: '16px 12px', background: 'var(--bg-main)', borderRadius: 16, textAlign: 'center' }}>
+                <p style={{ fontSize: 22, fontWeight: 800, color: showProfileModal.color }}>{showProfileModal.projects}</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>Projects</p>
+              </div>
+              <div style={{ padding: '16px 12px', background: 'var(--bg-main)', borderRadius: 16, textAlign: 'center' }}>
+                <p style={{ fontSize: 22, fontWeight: 800, color: showProfileModal.color }}>{showProfileModal.tasks}</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>Tasks</p>
+              </div>
+              <div style={{ padding: '16px 12px', background: 'var(--bg-main)', borderRadius: 16, textAlign: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, height: 26 }}>
+                  <Star size={16} color="#f59e0b" fill="#f59e0b" />
+                  <span style={{ fontSize: 20, fontWeight: 800, color: '#f59e0b' }}>{showProfileModal.rating}</span>
+                </div>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>Rating</p>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24, padding: '16px', background: 'var(--bg-main)', borderRadius: 16 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ width: 32, height: 32, borderRadius: 10, background: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Mail size={14} color="var(--text-muted)" />
+                </div>
+                <span style={{ fontSize: 13, color: 'var(--text-primary)', fontWeight: 500 }}>{showProfileModal.email}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ width: 32, height: 32, borderRadius: 10, background: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Phone size={14} color="var(--text-muted)" />
+                </div>
+                <span style={{ fontSize: 13, color: 'var(--text-primary)', fontWeight: 500 }}>{showProfileModal.phone}</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: 12 }}>
+              <button className="btn-secondary" onClick={() => setShowProfileModal(null)} style={{ flex: 1, justifyContent: 'center', padding: '12px' }}>Close</button>
+              <button className="btn-primary" onClick={() => { setShowMsgModal(showProfileModal); setShowProfileModal(null); setSentMsg(false); setMsgText(''); }} style={{ flex: 2, justifyContent: 'center', padding: '12px' }}>
+                <MessageSquare size={16} /> Send Message
+              </button>
+            </div>
           </div>
         </div>
       )}

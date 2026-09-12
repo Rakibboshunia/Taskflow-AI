@@ -3,30 +3,7 @@
 import { useState, useRef } from 'react';
 import { Plus, Search, MoreHorizontal, FolderOpen, Users, Calendar, CheckSquare, TrendingUp, X, Edit2, Trash2 } from 'lucide-react';
 
-type ProjectStatus = 'In Progress' | 'Review' | 'Planning' | 'Completed';
-type ProjectPriority = 'High' | 'Medium' | 'Low';
-
-interface Project {
-  id: number;
-  name: string;
-  category: string;
-  progress: number;
-  status: ProjectStatus;
-  members: string[];
-  tasks: { done: number; total: number };
-  due: string;
-  color: string;
-  priority: ProjectPriority;
-}
-
-const initialProjects: Project[] = [
-  { id: 1, name: 'AI SaaS Dashboard', category: 'Web App', progress: 75, status: 'In Progress', members: ['AR', 'SI', 'TH'], tasks: { done: 24, total: 32 }, due: 'Jun 30', color: '#7c3aed', priority: 'High' },
-  { id: 2, name: 'E-commerce Platform', category: 'E-Commerce', progress: 60, status: 'In Progress', members: ['SI', 'JF'], tasks: { done: 18, total: 30 }, due: 'Jul 15', color: '#a855f7', priority: 'High' },
-  { id: 3, name: 'Mobile Banking App', category: 'Mobile', progress: 90, status: 'Review', members: ['TH', 'AR', 'SI', 'JF'], tasks: { done: 45, total: 50 }, due: 'May 25', color: '#3b82f6', priority: 'Medium' },
-  { id: 4, name: 'Marketing Website', category: 'Web', progress: 40, status: 'Planning', members: ['AR'], tasks: { done: 8, total: 20 }, due: 'Aug 1', color: '#10b981', priority: 'Low' },
-  { id: 5, name: 'Analytics Platform', category: 'Data', progress: 55, status: 'In Progress', members: ['SI', 'TH'], tasks: { done: 22, total: 40 }, due: 'Jul 20', color: '#f59e0b', priority: 'Medium' },
-  { id: 6, name: 'HR Management System', category: 'Enterprise', progress: 25, status: 'Planning', members: ['JF', 'AR'], tasks: { done: 5, total: 20 }, due: 'Sep 1', color: '#ef4444', priority: 'Low' },
-];
+import { useGlobalContext, Project, ProjectStatus, ProjectPriority } from '@/context/GlobalContext';
 
 const statusColors: Record<ProjectStatus, string> = {
   'In Progress': 'badge-primary', 'Review': 'badge-warning', 'Planning': 'badge-info', 'Completed': 'badge-success',
@@ -37,15 +14,15 @@ const colorOptions = ['#7c3aed', '#a855f7', '#3b82f6', '#10b981', '#f59e0b', '#e
 const defaultForm = { name: '', category: '', progress: 0, status: 'Planning' as ProjectStatus, members: '', tasksDone: 0, tasksTotal: 0, due: '', color: '#7c3aed', priority: 'Medium' as ProjectPriority };
 
 export default function Projects() {
+  const { projects, setProjects } = useGlobalContext();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('All');
   const [view, setView] = useState<'grid' | 'list'>('grid');
-  const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [showModal, setShowModal] = useState(false);
   const [editProject, setEditProject] = useState<Project | null>(null);
   const [form, setForm] = useState(defaultForm);
   const [menuOpen, setMenuOpen] = useState<number | null>(null);
-  const nextId = useRef(initialProjects.length + 1);
+  const nextId = useRef(projects.length > 0 ? Math.max(...projects.map(p => p.id)) + 1 : 1);
 
   const filtered = projects.filter(p => {
     const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
