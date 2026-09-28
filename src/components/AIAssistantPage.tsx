@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -72,6 +73,7 @@ export default function AIAssistantPage() {
           display: 'flex', alignItems: 'center', gap: 12,
           background: 'linear-gradient(135deg, rgba(124,58,237,0.1), rgba(99,102,241,0.05))'
         }}>
+          
           <div style={{
             width: 44, height: 44, borderRadius: 12,
             background: 'linear-gradient(135deg, #7c3aed, #a855f7)',
@@ -80,6 +82,7 @@ export default function AIAssistantPage() {
           }}>
             <Cpu size={22} color="white" />
           </div>
+          
           <div>
             <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>AI Assistant</p>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
