@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -41,6 +42,7 @@ function StatCard({ icon: Icon, label, value, trend, trendUp, gradient, iconColo
       }}>
         <Icon size={22} color="white" strokeWidth={1.8} />
       </div>
+      
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <p style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500, letterSpacing: '0.02em' }}>{label}</p>
@@ -48,6 +50,7 @@ function StatCard({ icon: Icon, label, value, trend, trendUp, gradient, iconColo
             <MoreHorizontal size={14} />
           </button>
         </div>
+        
         <p style={{ fontSize: 30, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.2, marginTop: 4, letterSpacing: '-0.5px' }}>{value}</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 6 }}>
           {trendUp
