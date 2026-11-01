@@ -1,11 +1,12 @@
 'use client';
 
-
 import { useState, useRef, useEffect } from 'react';
 import { Page } from '@/app/page';
 import {
-  LayoutDashboard, FolderOpen, CheckSquare, Bot, Calendar,
-  Users, BarChart3, FileText, Zap, Settings, ChevronDown,
+  LayoutDashboard, FolderOpen, 
+  CheckSquare, Bot, Calendar,
+  Users, BarChart3, FileText, 
+  Zap, Settings, ChevronDown,
   Sparkles, Crown
 } from 'lucide-react';
 
