@@ -2,7 +2,6 @@
 
 import { useState, useRef } from 'react';
 import { Plus, Search, MoreHorizontal, FolderOpen, Users, Calendar, CheckSquare, TrendingUp, X, Edit2, Trash2 } from 'lucide-react';
-
 import { useGlobalContext, Project, ProjectStatus, ProjectPriority } from '@/context/GlobalContext';
 
 const statusColors: Record<ProjectStatus, string> = {
