@@ -2,8 +2,11 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Plus, Search, Mail, Phone, MoreHorizontal, Star, MessageSquare, X, Edit2, Trash2, Send } from 'lucide-react';
-
+import { Plus, Search, Mail, 
+        Phone, MoreHorizontal, 
+        Star, MessageSquare, X, 
+        Edit2, Trash2, Send 
+       } from 'lucide-react';
 import { useGlobalContext, Member } from '@/context/GlobalContext';
 
 const statusConfig: Record<string, { color: string; label: string }> = {
