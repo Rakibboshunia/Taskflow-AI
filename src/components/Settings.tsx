@@ -2,10 +2,14 @@
 
 import { useState } from 'react';
 import {
-  User, Bell, Palette, Shield, CreditCard, Camera,
-  Check, Eye, EyeOff, ChevronRight, Crown, Zap,
-  Monitor, Moon, Sun, Globe, Lock, Smartphone,
-  Mail, MessageSquare, Clock, Trash2, LogOut, AlertTriangle
+  User, Bell, Palette, 
+  Shield, CreditCard, Camera,
+  Check, Eye, EyeOff, 
+  ChevronRight, Crown, Zap,
+  Monitor, Moon, Sun, 
+  Globe, Lock, Smartphone,
+  Mail, MessageSquare, Clock, 
+  Trash2, LogOut, AlertTriangle
 } from 'lucide-react';
 
 type Tab = 'profile' | 'notifications' | 'appearance' | 'security' | 'billing';
