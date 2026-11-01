@@ -1,9 +1,21 @@
-
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { Page } from '@/app/page';
-import { Search, Bell, Plus, Menu, Command, User, Settings, LogOut, ChevronDown, Shield, Sun, Moon } from 'lucide-react';
+import { 
+        Search, 
+        Bell, 
+        Plus, 
+        Menu, 
+        Command, 
+        User, 
+        Settings, 
+        LogOut, 
+        ChevronDown, 
+        Shield, 
+        Sun, 
+        Moon 
+             } from 'lucide-react';
 
 const pageTitles: Record<Page, { title: string; sub: string }> = {
   dashboard: { title: 'Dashboard', sub: "Here's what's happening with your projects today." },
