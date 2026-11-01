@@ -1,10 +1,15 @@
-
 'use client';
 
 import { useState } from 'react';
 import {
-  Zap, CheckCircle, Search,
-  X, ExternalLink, RefreshCw, ChevronRight, Star
+  Zap, 
+  CheckCircle, 
+  Search,
+  X, 
+  ExternalLink, 
+  RefreshCw, 
+  ChevronRight, 
+  Star
 } from 'lucide-react';
 
 interface Integration {
